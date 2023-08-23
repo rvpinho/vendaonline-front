@@ -1,0 +1,91 @@
+<div class="content-wrapper container-xxl p-0">
+  <div class="content-body">
+    <!-- content-header component -->
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+
+    <!-- Basic Alerts start -->
+    <section id="home-page">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <ng-container *ngIf="produto.id">
+                <h4 class="card-title">Produtos</h4>
+              </ng-container>
+              <ng-container *ngIf="!produto.id">
+                <h4 class="card-title">Criar produtos 🚀</h4>
+              </ng-container>
+            </div>
+            <div class="card-body pb-1">
+              <form
+                class="auth-login-form mt-2"
+                [formGroup]="loginForm"
+                (ngSubmit)="onSubmit()"
+              >
+                <div class="form-group">
+                  <label class="form-label" for="descricao">Descrição</label>
+                  <input
+                    type="text"
+                    formControlName="descricao"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.descricao.errors }"
+                    placeholder="Nome do Produto"
+                    aria-describedby="descricao"
+                    autofocus=""
+                    tabindex="1"
+                    [value]="produto != undefined ? produto.descricao : ''"
+                  />
+                  <div
+                    *ngIf="submitted && f.descricao.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.descricao.errors.required">Name is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="valor_unitario">Valor</label>
+                  <input
+                    type="number"
+                    formControlName="valor_unitario"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                    placeholder="Preço do produto!"
+                    aria-describedby="valor_unitario"
+                    autofocus=""
+                    tabindex="1"
+                    [value]="produto != undefined ? produto.valor_unitario : ''"
+                  />
+                  <div
+                    *ngIf="submitted && f.login.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.login.errors.required">Date is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox"></div>
+                </div>
+                <button
+                  [disabled]="loading"
+                  class="btn btn-primary btn-block"
+                  tabindex="4"
+                  rippleEffect
+                >
+                  <span
+                    *ngIf="loading"
+                    class="spinner-border spinner-border-sm mr-1"
+                  ></span>
+                  <ng-container *ngIf="produto.id"> Editar </ng-container>
+                  <ng-container *ngIf="!produto.id"> Cadastrar </ng-container>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Basic Alerts end -->
+  </div>
+</div>

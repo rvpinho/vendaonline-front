@@ -1,0 +1,124 @@
+<div class="content-wrapper container-xxl p-0">
+  <div class="content-body">
+    <!-- content-header component -->
+    <app-content-header [contentHeader]="contentHeader"></app-content-header>
+
+    <!-- Basic Alerts start -->
+    <section id="home-page">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <ng-container *ngIf="compra.id">
+                <h4 class="card-title">Compras</h4>
+              </ng-container>
+              <ng-container *ngIf="!compra.id">
+                <h4 class="card-title">Create Compras 🚀</h4>
+              </ng-container>
+            </div>
+            <div class="card-body pb-1">
+              <form
+                class="auth-login-form mt-2"
+                [formGroup]="loginForm"
+                (ngSubmit)="onSubmit()"
+              >
+                <div class="form-group">
+                  <label class="form-label" for="usuario_id">Comprador</label>
+                  <select class="form-control" (change)="onSelecaoUserChange($event)">
+                    <option [value]="">
+                      -
+                    </option>
+                    <option *ngFor="let user of users" [value]="user.id" [selected]="user.id === compra.usuario_id">
+                      {{ user.nome }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="submitted && f.usuario_id.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.usuario_id.errors.required">Name is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="endereco_id">Endereço</label>
+                  <select class="form-control" (change)="onSelecaoEnderecoChange($event)">
+                    <option [value]="">
+                      -
+                    </option>
+                    <option *ngFor="let endereco of enderecos" [value]="endereco.id" [selected]="endereco.id === compra.usuario_id">
+                      {{ endereco.rua }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="submitted && f.login.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.login.errors.required">Adress is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="usuario_id">Produto</label>
+                  <select class="form-control" (change)="onSelecaoProdutoChange($event)">
+                    <option [value]="">
+                      -
+                    </option>
+                    <option *ngFor="let produto of produtos" [value]="produto.id" [selected]="produto.id === compra.produto_id">
+                      {{ produto.descricao }}
+                    </option>
+                  </select>
+                  <div
+                    *ngIf="submitted && f.usuario_id.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.usuario_id.errors.required">Name is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label" for="produto_qtd">Qtd Produto</label>
+                  <input
+                    type="number"
+                    formControlName="produto_qtd"
+                    class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f.name.errors }"
+                    placeholder="Your name"
+                    aria-describedby="name"
+                    autofocus=""
+                    tabindex="1"
+                    [value]="compra != undefined ? compra.produto_qtd : ''"
+                  />
+                  <div
+                    *ngIf="submitted && f.usuario_id.errors"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="f.usuario_id.errors.required">Name is required</div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="custom-control custom-checkbox"></div>
+                </div>
+                <button
+                  [disabled]="loading"
+                  class="btn btn-primary btn-block"
+                  tabindex="4"
+                  rippleEffect
+                >
+                  <span
+                    *ngIf="loading"
+                    class="spinner-border spinner-border-sm mr-1"
+                  ></span>
+                  <ng-container *ngIf="compra.id"> Edit </ng-container>
+                  <ng-container *ngIf="!compra.id"> Create </ng-container>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Basic Alerts end -->
+  </div>
+</div>
